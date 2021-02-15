@@ -20,7 +20,19 @@ public class Processor {
         new Thread(() -> {
             synchronized (data) {
                 for (int i = 0; i < 100; i++) {
-                    data.number++;
+                    Integer x = data.number;
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    x++;
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    data.number = x;
                 }
                 completionsMap.put(Thread.currentThread().getName(), true);
             }
